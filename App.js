@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, Button, TouchableOpacity } from "react-native";
 import { Audio } from "expo-av";
+import { CurrentDate } from "./components/CurrentDate";
 
 export default function App() {
   const [recording, setRecording] = useState();
@@ -52,6 +53,7 @@ export default function App() {
           <Text style={styles.fill}>
             Recording #{index + 1} | {recordingLine.duration}
           </Text>
+
           <TouchableOpacity
             style={styles.button}
             activeOpacity={0.5}
@@ -71,6 +73,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Text style={styles.textAudio}>myAudio</Text>
+      <Text style={styles.textAudio}>{CurrentDate()}</Text>
       <View style={styles.wrapper}>
         <Button
           title={recording ? "Stop Recording" : "Start Recording\n"}
