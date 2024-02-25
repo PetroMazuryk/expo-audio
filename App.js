@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, Button } from "react-native";
+import { StyleSheet, Text, View, Button, TouchableOpacity } from "react-native";
 import { Audio } from "expo-av";
 
 export default function App() {
@@ -52,12 +52,13 @@ export default function App() {
           <Text style={styles.fill}>
             Recording #{index + 1} | {recordingLine.duration}
           </Text>
-          <Button
-            color={"green"}
-            borderRadius={16}
+          <TouchableOpacity
+            style={styles.button}
+            activeOpacity={0.5}
             onPress={() => recordingLine.sound.replayAsync()}
-            title="Play"
-          ></Button>
+          >
+            <Text style={styles.buttonTitle}>PLAY</Text>
+          </TouchableOpacity>
         </View>
       );
     });
@@ -97,8 +98,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    marginLeft: 10,
-    marginRight: 40,
+    marginLeft: 4,
+    marginRight: 10,
   },
 
   fill: {
@@ -112,5 +113,17 @@ const styles = StyleSheet.create({
   wrapper: {
     flexDirection: "row",
     gap: 10,
+  },
+  button: {
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: "green",
+    backgroundColor: "lightgreen",
+  },
+  buttonTitle: {
+    color: "#301791",
+    fontWeight: "700",
+    paddingVertical: 4,
+    paddingHorizontal: 12,
   },
 });
