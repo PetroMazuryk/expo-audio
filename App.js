@@ -30,6 +30,7 @@ export default function App() {
     let allRecordings = [...recordings];
     const { sound, status } = await recording.createNewLoadedSoundAsync();
     allRecordings.push({
+      id: new Date(),
       sound: sound,
       duration: getDurationFormatted(status.durationMillis),
       file: recording.getURI(),
@@ -48,6 +49,9 @@ export default function App() {
 
   function clearRecordings() {
     setRecordings([]);
+  }
+  function clearRecordingsItem(itemId) {
+    setRecordings(recordings.filter((item) => item.id !== itemId));
   }
 
   function getRecordingLines() {
@@ -68,7 +72,7 @@ export default function App() {
           <TouchableOpacity
             style={styles.buttonDelete}
             activeOpacity={0.5}
-            onPress={() => recordingLine.sound.replayAsync()}
+            onPress={() => clearRecordingsItem(recordingLine.id)}
           >
             <Text style={styles.buttonTitle}>DELETE</Text>
           </TouchableOpacity>
