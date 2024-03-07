@@ -46,6 +46,10 @@ export default function App() {
       : `${Math.floor(minutes)}:${seconds}`;
   }
 
+  function clearRecordings() {
+    setRecordings([]);
+  }
+
   function getRecordingLines() {
     return recordings.map((recordingLine, index) => {
       return (
@@ -55,25 +59,29 @@ export default function App() {
           </Text>
 
           <TouchableOpacity
-            style={styles.button}
+            style={styles.buttonPlay}
             activeOpacity={0.5}
             onPress={() => recordingLine.sound.replayAsync()}
           >
             <Text style={styles.buttonTitle}>PLAY</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.buttonDelete}
+            activeOpacity={0.5}
+            onPress={() => recordingLine.sound.replayAsync()}
+          >
+            <Text style={styles.buttonTitle}>DELETE</Text>
           </TouchableOpacity>
         </View>
       );
     });
   }
 
-  function clearRecordings() {
-    setRecordings([]);
-  }
-
   return (
     <View style={styles.container}>
       <Text style={styles.textAudio}>myAudio</Text>
       <Text style={styles.textAudio}>{CurrentDate()}</Text>
+      <Text style={styles.textAudio}>{new Date().toLocaleDateString()}</Text>
       <View style={styles.wrapper}>
         <Button
           title={recording ? "Stop Recording" : "Start Recording\n"}
@@ -117,11 +125,19 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 10,
   },
-  button: {
+  buttonPlay: {
     borderRadius: 10,
     borderWidth: 1,
     borderColor: "green",
     backgroundColor: "lightgreen",
+    marginLeft: 10,
+  },
+  buttonDelete: {
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: "green",
+    backgroundColor: "tomato",
+    marginLeft: 10,
   },
   buttonTitle: {
     color: "#301791",
