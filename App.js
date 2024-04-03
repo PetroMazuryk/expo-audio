@@ -7,6 +7,16 @@ export default function App() {
   const [recording, setRecording] = useState();
   const [recordings, setRecordings] = useState([]);
 
+  function generateUniqueId(length = 10) {
+    const chars =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let result = "";
+    for (let i = 0; i < length; i++) {
+      result += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return result;
+  }
+
   async function startRecording() {
     try {
       const perm = await Audio.requestPermissionsAsync();
@@ -30,7 +40,8 @@ export default function App() {
     let allRecordings = [...recordings];
     const { sound, status } = await recording.createNewLoadedSoundAsync();
     allRecordings.push({
-      id: new Date(),
+      // id: new Date(),
+      id: generateUniqueId(),
       sound: sound,
       duration: getDurationFormatted(status.durationMillis),
       file: recording.getURI(),
