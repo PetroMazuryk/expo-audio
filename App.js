@@ -16,7 +16,7 @@ export default function App() {
     }
     return result;
   }
-
+  console.log(recordings);
   async function startRecording() {
     try {
       const perm = await Audio.requestPermissionsAsync();
@@ -40,7 +40,6 @@ export default function App() {
     let allRecordings = [...recordings];
     const { sound, status } = await recording.createNewLoadedSoundAsync();
     allRecordings.push({
-      // id: new Date(),
       id: generateUniqueId(),
       sound: sound,
       duration: getDurationFormatted(status.durationMillis),
